@@ -9,9 +9,3 @@ echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7LQS1CAK1lNCblIqyhm9VbP2iYqI5wGzV8k
 chmod -R go= /home/nico/.ssh
 chown -R nico:nico /home/nico/.ssh
 echo 'nico ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/admins
-
-# install mdns
-#hostnamectl set-hostname ubuntu
-apt install avahi-daemon -y
-systemctl start avahi-daemon
-systemctl enable avahi-daemon
