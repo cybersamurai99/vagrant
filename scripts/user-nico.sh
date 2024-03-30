@@ -9,3 +9,7 @@ echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7LQS1CAK1lNCblIqyhm9VbP2iYqI5wGzV8k
 chmod -R go= /home/nico/.ssh
 chown -R nico:nico /home/nico/.ssh
 echo 'nico ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/admins
+
+
+# Autofind on netowork
+apt install avahi-daemon && systemctl start avahi-daemon

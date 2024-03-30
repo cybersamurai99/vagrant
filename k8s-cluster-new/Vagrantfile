@@ -31,5 +31,5 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", name: "install-containerd", path: "install-containerd.sh"
     config.vm.provision "shell", name: "install-kubeadm", path: "install-kubeadm.sh"
     config.vm.provision "shell", name: "update-kubelet-config", path: "update-kubelet-config.sh", args: ["eth1"]
-    #config.vm.provision "shell", name: "init-controlplane", path: "init-controlplane.sh"
+    config.vm.provision "shell", name: "init-controlplane", path: "init-controlplane.sh", privileged: false
 end
