@@ -12,4 +12,4 @@ echo 'nico ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/admins
 
 
 # Autofind on netowork
-apt install avahi-daemon && systemctl start avahi-daemon
+apt-get -y install avahi-daemon && systemctl start avahi-daemon
