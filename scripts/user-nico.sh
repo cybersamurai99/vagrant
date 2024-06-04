@@ -10,6 +10,5 @@ chmod -R go= /home/nico/.ssh
 chown -R nico:nico /home/nico/.ssh
 echo 'nico ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/admins
 
-
-# Autofind on netowork
+# Autofind on local network
 apt-get -y install avahi-daemon && systemctl start avahi-daemon

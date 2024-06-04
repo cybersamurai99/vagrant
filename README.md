@@ -1,7 +1,9 @@
 # vagrant
-Speed build dev enviroments
+Speed build dev/test environments
 
-Builds are based on default ubuntu22.04
+Builds are based on default ubuntu22.04 image
+
+>This will soon be superseeded by multipass... check repos
 
 
 ## docker
