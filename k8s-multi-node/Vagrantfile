@@ -1,0 +1,39 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-22.04"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 2048
+    vb.cpus = 2
+  end
+
+  # Control Plane
+  config.vm.define "control-plane" do |node|
+    node.vm.hostname = "control-plane"
+    node.vm.network "private_network", ip: "192.168.56.10", hostname: true
+    node.vm.provision "shell", name: "Tag Controller", inline: "echo 'control' > /var/role"
+    node.vm.provision "shell", inline: "rm -f /vagrant/.vagrant/join.sh"
+    node.vm.provision "shell", name: "init-controlplane", path: "init-controlplane.sh"
+  end
+
+  # Worker Nodes
+  (1..2).each do |i|
+    hostname = "node-#{'%02d' % i}"
+    config.vm.define "#{hostname}" do |node|
+      node.vm.hostname = "#{hostname}"
+      node.vm.network "private_network", ip: "192.168.56.#{10 + i}", hostname: true
+      node.vm.provision "shell", name: "Tag Node", inline: "echo 'node' > /var/role"
+      node.vm.provision "shell", name: "Join cluster", path: "nodes-join.sh"
+      
+    end
+  end
+
+  # Ensure global provisioners run AFTER node tagging
+  config.vm.provision "shell", name: "Remove old cluster join", inline: "rm -f /vagrant/.vagrant/join.sh"
+  config.vm.provision "shell", name: "Add Nico", path: "../scripts/user-nico.sh"
+  config.vm.provision "shell", name: "Install Essential Tools", path: "install-essential.sh"
+  config.vm.provision "shell", name: "Install Container Runtime", path: "install-containerd.sh"
+  config.vm.provision "shell", name: "Install Kube-tools", path: "install-kube-tools.sh"
+end

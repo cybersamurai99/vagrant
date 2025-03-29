@@ -5,7 +5,7 @@ adduser nico --gecos "Nico Kruger,RoomNumber,WorkPhone,HomePhone" --disabled-pas
 echo "nico:nico@123" | sudo chpasswd
 # add nico pub key
 mkdir -p /home/nico/.ssh
-echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7LQS1CAK1lNCblIqyhm9VbP2iYqI5wGzV8kPTqRP0DDOF5m0vw4kRpAuPz8AeztCddEDlbZ5N1ZGOb+edeVTPSJtaEIiuloOtHVgzDzbtQulnzke/UqvLWbv9xTqEmCct5sOt+32QP4/y+9u7uHgOSVda0SiID72Rq0xHmfNu8QdmI6Rr0tKmlUvvttge6tnHFPS1JtK++92K0e96I4iRwi0RVfh/OZc6LdvikPuMVoFK1GV2D4tSJ7DJD8QnOaKjfbawg+IU5j9p6kJFjD6EeiFvGfmyz4WxPmjVuWsNu3RbzBsIzqQIMlP3+wVfMtFGKCO77ZMox8HHlKCzUCqnk3ZwxhEwmen040a/bJyptw5GAq6CvPW5CfgK+vCTCtX/jv+7Yq6rv+kSF8XNVFp054lGqFLEOqsYKOUOTdifc2DOEmxDF1E4z5HC+GMwngDbxCURrMhPM7T1cSC8tKMn7ds5Vranjxtmnv6Z6X451GzVmlN+k5phmSsYHgQX/D0= linic@samurai" >> /home/nico/.ssh/authorized_keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDSlJ9kfS5qYfKqlHiRHYX507oSPyqhSGEt2aU+jOY5tYbajGRfF5A0InUiYfHEI/vW8KTVuKqTGTjDvHAPwK09T2G3c61KRIlKFHkaQr7C21xgi9F2ibdoQBv4/pIBMY9nN1AodAA4bdVPk0N5O74JKCFuzfl8YyjsE9QHasCbpwQ7bsFCdiJWP8THDmIU1LvexHECIYDR1Kp6nvsNbjMjSq9dNEwTywDFlOnefmikR0vJpYFAd/mtTQBepUat5UtUk/qe5Spu2v+T4+uTGeN1/c4WRuU/gXBDxO2e1AFmxt0xLNVV5OmcUFPztxJpWrkexejdT+IyrM301l42ooPAbqWl3XCLO89/L5aRV48hHTZ91tvfKWo0gdN56RHoclc6HOolSHwY1GAZrpAujvW+44X4/wD7sl5qHkN1rjrMbtw5R2ewRHBHbLthsBPCt4V5tBdKq701Mi2M1azOpX7Pj3BiJjtjeRGOUP96bNCnv0ksA2FWWNfvHo3M8lw4Fu0= linic@dovakin" >> /home/nico/.ssh/authorized_keys
 chmod -R go= /home/nico/.ssh
 chown -R nico:nico /home/nico/.ssh
 echo 'nico ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/admins

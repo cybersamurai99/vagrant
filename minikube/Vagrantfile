@@ -6,7 +6,7 @@ servers = [
     {
         :name => "minikube",
         :type => "master",
-        :box => "generic/ubuntu2204",
+        :box => "bento/ubuntu-22.04",
         :enp0s8 => "192.168.33.10",
         :mem => "4096",
         :cpu => "2"
