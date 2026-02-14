@@ -4,7 +4,7 @@
 #Vagrant::DEFAULT_SERVER_URL.replace('https://vagrantcloud.com')
 servers = [
     {
-        :name => "docker",
+        :name => "k0s",
         :type => "master",
         :box => "cloud-image/ubuntu-24.04",
         :mem => "4096",
@@ -32,6 +32,7 @@ Vagrant.configure("2") do |config|
 
             config.vm.provision "shell", path: "../scripts/user-nico.sh"
             config.vm.provision "shell", path: "../scripts/install-docker.sh"
+            config.vm.provision "shell", path: "install-k0s.sh"
 
         end
     end
