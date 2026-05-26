@@ -5,10 +5,11 @@
 servers = [
     {
         :name => "docker",
-        :type => "master",
-        :box => "cloud-image/ubuntu-24.04",
-        :mem => "4096",
-        :cpu => "2"
+        :box => "cloud-image/ubuntu-26.04",
+        :mem => "16384",
+        :disk => "30GB",
+        :cpu => "12",
+        :mac => "08002742e957"
     },
 ]
 
@@ -20,18 +21,31 @@ Vagrant.configure("2") do |config|
 
             config.vm.box = opts[:box]
             config.vm.hostname = opts[:name]
-            config.vm.network "public_network" #, use_dhcp_assigned_default_route: true
+            config.vm.network "public_network", mac: opts[:mac] #, use_dhcp_assigned_default_route: true
 
             config.vm.provider "virtualbox" do |v|
 
                 v.name = opts[:name]
                 v.customize ["modifyvm", :id, "--memory", opts[:mem]]
                 v.customize ["modifyvm", :id, "--cpus", opts[:cpu]]
-
+                # --- PERFORMANCE BOOSTS START HERE ---
+                # Sets the Public NIC (Adapter 2) to use the Paravirtualized Network driver
+                v.customize ["modifyvm", :id, "--nictype2", "virtio"]
+                # --------------------------------------
             end
+            # Resize disk using vagrant-disksize plugin
+            # remember to run: vagrant plugin install vagrant-disksize
+            config.disksize.size = opts[:disk]
 
+            config.vm.provision "shell", path: "../scripts/setup-apt-repo.sh"
             config.vm.provision "shell", path: "../scripts/user-nico.sh"
             config.vm.provision "shell", path: "../scripts/install-docker.sh"
+
+            # Attempt to kill the daemon cleanly before a halt/destroy
+            config.trigger.before :halt, :destroy do |trigger|
+                trigger.warn = "Sending mDNS goodbye packets..."
+                trigger.run_remote = {inline: "sudo systemctl stop avahi-daemon"}
+            end            
 
         end
     end
